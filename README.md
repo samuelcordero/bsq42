@@ -8,7 +8,7 @@ The program is written in C and was developed as part of the 42 Piscine, a codin
 To use this program, you first need to download the source code. You can do this by cloning the repository:
 
 ```
-git clone https://github.com/yourusername/big-square-problem-solver.git
+git clone https://github.com/samuelcordero/bsq42.git
 ```
 Once you have the source code, you can compile the program by running make
 
