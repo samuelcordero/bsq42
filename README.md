@@ -45,7 +45,7 @@ The program will output the map with the biggest square found, represented by th
  o x x x x x x x .
  . x x x x x x x .
 ```
-_(Note that a space is introduced between chars to make the square clearer)_
+_(Note that a space is printed between chars to make the square clearer)_
 
 To run the perl map generator, use the next command (where 9 9 means x and y and 1 is the obstacle density):
 ```
