@@ -16,33 +16,53 @@ Once you have the source code, you can compile the program by running make
 The program takes a file as input, which contains the map with obstacles. The file should have the following format:
 
 The first line should contain one integer (number of lines) and the codification (eg: 9.ox would be 9 lines, '.' would be a free space, 'o' and obstable and 'x' the square representation). The remaining lines should contain the map itself.
-Here is an example of a valid input file: <br />
-9.ox <br />
-.......... <br />
-.......... <br />
-..oooo.... <br />
-..oooo.... <br />
-..oooo.... <br />
-..oooo.... <br />
-..oooo.... <br />
-..oooo.... <br />
-.......... <br />
-<br />
-To run the program with the input file, use the following command:
+Here is an example of a valid input file: 
 ```
-./bsq input_file
+9.ox
+.........
+......o..
+.........
+.........
+.........
+.........
+.........
+o........
+.........
+```
+To run the program with the input file (here shown as map), use the following command:
+```
+./bsq map
 ```
 The program will output the map with the biggest square found, represented by the defined char in the file.
+```
+ . . . . . . . . .
+ . . . . . . o . .
+ . x x x x x x x .
+ . x x x x x x x .
+ . x x x x x x x .
+ . x x x x x x x .
+ . x x x x x x x .
+ o x x x x x x x .
+ . x x x x x x x .
+```
+_(Note that a space is introduced between chars to make the square clearer)_
 
+To run the perl map generator, use the next command (where 9 9 means x and y and 1 is the obstacle density):
+```
+perl perlMapGenerator 9 9 1
+```
+
+Or redirect the output to a file with the name of your choice:
+```
+perl perlMapGenerator 9 9 1 > map
+```
 ## Algorithm
-The algorithm used to find the biggest square is based on dynamic programming. It works as follows:
+The algorithm used to find the biggest square is based on brute force. It works as follows:
 
-We create a matrix with the same dimensions as the input map, initialized to 0.
+We create a matrix with the same dimensions as the input map, and copy each char on it.
 For each cell in the input map, we check if it is an obstacle or not.
-If it is an obstacle, we set the corresponding cell in the matrix to 0.
-If it is not an obstacle, we set the corresponding cell in the matrix to the minimum of the three cells above, to the left, and diagonally above and to the left, plus 1.
-We keep track of the biggest square found so far, and its position in the map.
-Once we have processed all the cells, we mark the biggest square found by setting its cells to x's in the output map.
+If it is an obstacle, we skip the cell.
+If it is not an obstacle, we assume that cell as the bottom right corner fo our square. Then we keep substracting 1 to both x and y, getting a top left cell for the square each time. We check that the upper left border doesnt contain an obstacle (the inner and bootom right cells would have been checked in previous iterations), and we keep moving the top left corner until an obstacle or the map border is hit. Once we hit something, we check if the side of the square is bigger than the previous biggest side. If so, we save the 'x, y' values of the new biggest square's bottom right corner, and the side size. After we check the last cell, we draw a side size square from x, y bottom right corner and print the result.
 
 ## Credits
 This program was written by sacorder and abimassap as part of the 42 Piscine. If you have any questions or suggestions, feel free to contact me at sacorder@student.42madrid.com
